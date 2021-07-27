@@ -28,6 +28,9 @@ const InfiniteScrollList = () => {
   }, [pageNumber]);
 
   const onIntersect = entries => {
+    if (entries[0].boundingClientRect.height !== 0) {
+      return;
+    }
     entries.forEach(entry => {
       if (entry.isIntersecting && hasMore) {
         setPageNumber(prev => prev + 1);
