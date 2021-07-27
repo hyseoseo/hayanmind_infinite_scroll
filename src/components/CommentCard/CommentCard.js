@@ -1,9 +1,9 @@
 import React from "react";
-import { CommentStyled } from "./Comment.styles";
+import { CommentCardStyled } from "./CommentCard.styles";
 
-const Comment = ({ item }) => {
+const CommentCard = ({ item }) => {
   return (
-    <CommentStyled>
+    <CommentCardStyled>
       <div className="comment-id">
         <span className="comment-id-title">Comment Id</span>
         <span className="comment-id-content">{item.id}</span>
@@ -16,8 +16,8 @@ const Comment = ({ item }) => {
         <span className="comment-body-title">Comment</span>
         <div className="comment-body-content">{item.body.substring(0, 150)}</div>{" "}
       </div>
-    </CommentStyled>
+    </CommentCardStyled>
   );
 };
 
-export default Comment;
+export default CommentCard;
