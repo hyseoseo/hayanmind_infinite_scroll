@@ -14,7 +14,7 @@ const CommentCard = ({ item }) => {
       </div>
       <div className="comment-body">
         <span className="comment-body-title">Comment</span>
-        <div className="comment-body-content">{item.body.substring(0, 150)}</div>{" "}
+        <div className="comment-body-content">{item.body}</div>{" "}
       </div>
     </CommentCardStyled>
   );

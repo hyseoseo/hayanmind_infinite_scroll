@@ -5,7 +5,7 @@ export const CommentCardStyled = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 500px;
-  height: 193px;
+  height: auto;
   border-radius: 20px;
   background-color: #f8f9fa;
   border: 0.5px solid #ced4da;
