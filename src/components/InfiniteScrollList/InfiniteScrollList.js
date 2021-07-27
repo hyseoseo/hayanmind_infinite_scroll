@@ -10,18 +10,7 @@ const InfiniteScrollList = () => {
   const [hasMore, setHasMore] = useState(true);
   const loader = useRef(null);
   const PAGE_LIMIT = 50;
-  /*
-  const getFirstList = () => {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/comments?_page=${pageNumber}&_limit=10`)
-      .then(response => {
-        setIsLoading(false);
-        setCommentList(items => [...items, ...response.data]);
-        setHasMore(pageNumber !== PAGE_LIMIT);
-      })
-      .catch(error => console.warn(error));
-  };
-  */
+
   const getCommentList = () => {
     setIsLoading(true);
     axios
