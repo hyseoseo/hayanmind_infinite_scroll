@@ -28,28 +28,25 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [items, setItems] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
   const [pages, setPages] = useState(1);
   const loader = useRef(null);
 
   const getItems = async () => {
     await axios.get(`https://jsonplaceholder.typicode.com/comments?_page=${pages}&_limit=10`).then(response => {
-      setItems([...items, ...response.data]);
+      setItems(items => [...items, ...response.data]);
     });
   };
-
-  useEffect(() => {
-    getItems();
-  }, []);
 
   useEffect(() => {
     getItems();
   }, [pages]);
 
   const onIntersect = async entry => {
-    if (entry[0].isIntersecting) {
-      setPages(prev => prev + 1);
-    }
+    entry.forEach(element => {
+      if (element.isIntersecting) {
+        setPages(prev => prev + 1);
+      }
+    });
   };
 
   useEffect(() => {
@@ -66,7 +63,7 @@ function App() {
   return (
     <>
       <div className="content-container">
-        {items.map((item, index) => (
+        {items.map(item => (
           <Comment key={item.id} item={item} />
         ))}
         <div ref={loader} className="loader"></div>
