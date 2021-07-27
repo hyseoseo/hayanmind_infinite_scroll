@@ -26,9 +26,9 @@ const InfiniteScrollList = () => {
     getCommentList();
   }, [pageNumber]);
 
-  const onIntersect = async entry => {
-    entry.forEach(element => {
-      if (element.isIntersecting && hasMore) {
+  const onIntersect = entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && hasMore) {
         setPageNumber(prev => prev + 1);
       }
     });
