@@ -17,8 +17,7 @@
  https://hyseoseo.github.io/hayanmind_infinite_scroll
 
 
-
 ## 4. 실행화면
- <img src="https://user-images.githubusercontent.com/59982256/127107057-722addec-5247-4d16-88bf-87f413339112.gif">
+ <img src="https://user-images.githubusercontent.com/59982256/127108135-48a4d491-3914-4da7-ba30-c159c8c56943.gif">
  
  
