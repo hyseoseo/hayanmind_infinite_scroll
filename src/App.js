@@ -9,13 +9,13 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    font-family: Arial, Sans-Serif;
   }
 
   #root {
     width: 100%;
     height: 100%;
     font-weight: normal;
-    background-color: #f2f2f2;
   }
 
   .content-container {
@@ -23,39 +23,53 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f2f2f2;
   }
 `;
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [pages, setPages] = useState(1);
+  const loader = useRef(null);
 
-  const getItems = async page => {
-    setIsLoading(true);
-    await axios.get(`https://jsonplaceholder.typicode.com/comments?_page=${page}&_limit=10`).then(response => {
+  const getItems = async () => {
+    await axios.get(`https://jsonplaceholder.typicode.com/comments?_page=${pages}&_limit=10`).then(response => {
       setItems([...items, ...response.data]);
-      setIsLoading(false);
     });
   };
 
   useEffect(() => {
-    getItems(pages);
-    setPages(pages => pages + 1);
+    getItems();
   }, []);
+
+  useEffect(() => {
+    getItems();
+  }, [pages]);
+
+  const onIntersect = async entry => {
+    if (entry[0].isIntersecting) {
+      setPages(prev => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(onIntersect, options);
+    observer.observe(loader.current);
+    return () => observer.disconnect();
+  }, [loader]);
 
   return (
     <>
       <div className="content-container">
-        <div>
-          {items.map(item => (
-            <div key={item.id}>
-              <Comment item={item} />
-            </div>
-          ))}
-        </div>
+        {items.map((item, index) => (
+          <Comment key={item.id} item={item} />
+        ))}
+        <div ref={loader} className="loader"></div>
       </div>
       <GlobalStyle />
     </>
