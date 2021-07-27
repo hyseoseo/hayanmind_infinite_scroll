@@ -11,7 +11,7 @@ const InfiniteScrollList = () => {
   const loader = useRef(null);
   const PAGE_LIMIT = 50;
 
-  useEffect(() => {
+  const getCommentList = () => {
     axios
       .get(`https://jsonplaceholder.typicode.com/comments?_page=${pageNumber}&_limit=10`)
       .then(response => {
@@ -20,6 +20,10 @@ const InfiniteScrollList = () => {
         setHasMore(pageNumber !== PAGE_LIMIT);
       })
       .catch(error => console.warn(error));
+  };
+
+  useEffect(() => {
+    getCommentList();
   }, [pageNumber]);
 
   const onIntersect = async entry => {
