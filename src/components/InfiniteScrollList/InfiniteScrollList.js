@@ -28,9 +28,6 @@ const InfiniteScrollList = () => {
   }, [pageNumber]);
 
   const onIntersect = entries => {
-    if (entries[0].boundingClientRect.height !== 0) {
-      return;
-    }
     entries.forEach(entry => {
       if (entry.isIntersecting && hasMore) {
         setPageNumber(prev => prev + 1);
@@ -45,9 +42,9 @@ const InfiniteScrollList = () => {
       threshold: 0,
     };
     const observer = new IntersectionObserver(onIntersect, options);
-    observer.observe(loader.current);
+    if (!isLoading) observer.observe(loader.current);
     return () => observer.disconnect();
-  }, [loader]);
+  }, [loader, isLoading]);
 
   return (
     <div className="content-container">
